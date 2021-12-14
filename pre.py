@@ -1,5 +1,7 @@
 import numpy as np
-from numpy.core.function_base import linspace 
+from numpy.core.function_base import linspace
+from k_mean import MyKmeans
+
 # K:  number of cluster
 K = 3
 # N: number of pattern
@@ -15,12 +17,12 @@ def readFile(fileName):
 def normalize(arr):
     val_min = min(arr)
     val_max = max(arr)
-    
+
     tmp = arr
     for i in range(len(arr)):
         tmp[i] = (arr[i] - val_min)/(val_max - val_min)
     return tmp
-    
+
 
 
 text_file = open("bezdekIris.data", "r")
@@ -48,7 +50,7 @@ for i in range(len(lines)):
     arr_se_width.append(float(lines[i][1]))
     arr_pe_length.append(float(lines[i][2]))
     arr_pe_width.append(float(lines[i][3]))
-    
+
     if ("Iris-setosa" in lines[i][4]):
         arr_lable.append(0)
     elif ("Iris-versicolor" in lines[i][4]):
@@ -79,5 +81,21 @@ for i in range(N):
     # print (lines[i])
     print (data_normalize[i])
     # print (data_normalize_wLabel[i])
+
+
+
+# run Kmean
+print('*'*10)
+print('Run Kmean')
+print(np.array(data_normalize).shape)
+my_k_mean = MyKmeans(num_clusters = 3)
+(centroids, labels) = my_k_mean.fit(np.array(data_normalize))
+print('Centers found by our algorithm:')
+print(centroids)
+labels = np.array(labels)
+print(labels.shape)
+print(labels[:, :50])
+print(labels[:, 50:100])
+print(labels[:, 100:])
 
 
