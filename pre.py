@@ -85,7 +85,7 @@ for i in range(N):
 
 
 # run Kmean
-print('*'*10)
+print('*'*50)
 print('Run Kmean')
 print(np.array(data_normalize).shape)
 my_k_mean = MyKmeans(num_clusters = 3)
@@ -98,4 +98,16 @@ print(labels[:, :50])
 print(labels[:, 50:100])
 print(labels[:, 100:])
 
+# Test Kmean sklearn
+print('*'*50)
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=3, random_state=0).fit(np.array(data_normalize))
+print('Centers found by scikit-learn:')
+print(kmeans.cluster_centers_)
+pred_label = kmeans.predict(np.array(data_normalize))
+pred_label = np.array(pred_label)
+print(pred_label.shape)
+print(pred_label[:50])
+print(pred_label[50:100])
+print(pred_label[100:])
 
