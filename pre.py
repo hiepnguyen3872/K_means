@@ -94,9 +94,9 @@ print('Centers found by our algorithm:')
 print(centroids)
 labels = np.array(labels)
 print(labels.shape)
-print(labels[:, :50])
-print(labels[:, 50:100])
-print(labels[:, 100:])
+print(labels[:50])
+print(labels[50:100])
+print(labels[100:])
 
 # Test Kmean sklearn
 print('*'*50)
