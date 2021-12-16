@@ -111,3 +111,20 @@ print(pred_label[:50])
 print(pred_label[50:100])
 print(pred_label[100:])
 
+print("================")
+
+s0 = 0
+s1 = 0
+s2 = 0
+# print(len(pred_label))
+for i in range(len(pred_label)):
+    if i < 50 and pred_label[i] == 0:
+        s0 += 1
+    elif i < 100 and pred_label[i] == 1:
+        s1 += 1
+    elif pred_label[i] == 2:
+        s2 += 1
+        
+print(s0)
+print(s1)
+print(s2)
