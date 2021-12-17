@@ -1,5 +1,6 @@
 import numpy as np
 from numpy.core.function_base import linspace
+from numpy.lib.function_base import average
 from k_mean import MyKmeans
 
 # K:  number of cluster
@@ -58,6 +59,16 @@ for i in range(len(lines)):
     else:
         arr_lable.append(2)
 
+
+    lines[i][0] = float(lines[i][0])
+    lines[i][1] = float(lines[i][1])
+    lines[i][2] = float(lines[i][2])
+    lines[i][3] = float(lines[i][3])
+
+# for i in lines:   
+#     print(i)
+
+
 arr_se_length_normalize = normalize(arr_se_length)
 arr_se_width_normalize = normalize(arr_se_width)
 arr_pe_length_normalize = normalize(arr_pe_length)
@@ -79,7 +90,7 @@ for i in range(N):
 
 for i in range(N):
     # print (lines[i])
-    print (data_normalize[i])
+    print (data_normalize_wLabel[i])
     # print (data_normalize_wLabel[i])
 
 
@@ -90,13 +101,18 @@ print('Run Kmean')
 print(np.array(data_normalize).shape)
 my_k_mean = MyKmeans(num_clusters = 3)
 (centroids, labels) = my_k_mean.fit(np.array(data_normalize))
+
+print()
 print('Centers found by our algorithm:')
+
 print(centroids)
 labels = np.array(labels)
+print()
 print(labels.shape)
 print(labels[:50])
 print(labels[50:100])
 print(labels[100:])
+
 
 # Test Kmean sklearn
 print('*'*50)
@@ -113,18 +129,27 @@ print(pred_label[100:])
 
 print("================")
 
-s0 = 0
-s1 = 0
-s2 = 0
-# print(len(pred_label))
-for i in range(len(pred_label)):
-    if i < 50 and pred_label[i] == 0:
-        s0 += 1
-    elif i < 100 and pred_label[i] == 1:
-        s1 += 1
-    elif pred_label[i] == 2:
-        s2 += 1
+# s0 = 0
+# s1 = 0
+# s2 = 0
+# # print(len(pred_label))
+# for i in range(len(labels)):
+#     if i < 50 and labels[i] == 0:
+#         s0 += 1
+#     elif 50 <= i and i < 100 and labels[i] == 1:
+#         s1 += 1
+#     elif 100<= i and i < 150 and labels[i] == 2:
+#         s2 += 1
         
-print(s0)
-print(s1)
-print(s2)
+# print(s0)
+# print(s1)
+# print(s2)
+
+
+print("label:")
+print(arr_lable)
+
+from sklearn.metrics import accuracy_score
+
+print (accuracy_score(arr_lable, labels))
+
