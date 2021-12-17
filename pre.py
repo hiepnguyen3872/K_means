@@ -3,6 +3,8 @@ from numpy.core.function_base import linspace
 from numpy.lib.function_base import average
 from k_mean import MyKmeans
 import matplotlib.pyplot as plt
+import timeit
+
 
 # from main import kmeans_display
 
@@ -115,6 +117,7 @@ for i in range(N):
 #     print (data_normalize_wLabel[i])
 #     # print (data_normalize_wLabel[i])
 
+start_kmean = timeit.default_timer()
 
 
 # run Kmean
@@ -129,9 +132,9 @@ my_k_mean = MyKmeans(num_clusters = 3)
 print()
 print('Centers found by our algorithm:')
 
-print(centroids)
+print(centroids,"\n")
 labels = np.array(labels)
-print()
+
 print(labels.shape)
 
 print("\n50 first patterns:")
@@ -140,6 +143,10 @@ print("50 second patterns:")
 print(labels[50:100],"\n")
 print("50 last patterns:")
 print(labels[100:],"\n")
+
+
+stop_kmean = timeit.default_timer()
+start_sk = timeit.default_timer()
 
 
 # Test Kmean sklearn
@@ -151,27 +158,34 @@ print(kmeans.cluster_centers_)
 pred_label = kmeans.predict(np.array(data_normalize))
 pred_label = np.array(pred_label)
 print(pred_label.shape)
+print("\n50 first patterns:")
 print(pred_label[:50])
+print("\n50 second patterns:")
 print(pred_label[50:100])
+print("\n50 last patterns:")
 print(pred_label[100:])
 
-print("================")
+print("\n\n================")
 
-s0 = 0
-s1 = 0
-s2 = 0
+stop_sk = timeit.default_timer()
+
+
+
+# s0 = 0
+# s1 = 0
+# s2 = 0
 # print(len(pred_label))
-for i in range(len(labels)):
-    if i < 50 and labels[i] == 0:
-        s0 += 1
-    elif 50 <= i and i < 100 and labels[i] == 1:
-        s1 += 1
-    elif 100<= i and i < 150 and labels[i] == 2:
-        s2 += 1
+# for i in range(len(labels)):
+#     if i < 50 and labels[i] == 0:
+#         s0 += 1
+#     elif 50 <= i and i < 100 and labels[i] == 1:
+#         s1 += 1
+#     elif 100<= i and i < 150 and labels[i] == 2:
+#         s2 += 1
         
-print(s0)
-print(s1)
-print(s2)
+# print(s0)
+# print(s1)
+# print(s2)
 
 
 # print("label:")
@@ -181,6 +195,11 @@ from sklearn.metrics import accuracy_score
 
 print ("\n\nAccuracy score: ", accuracy_score(arr_label, labels) ,"\n\n")
 
+
+print ("\n\nAccuracy score by sklearn: ", accuracy_score(arr_label, pred_label) ,"\n\n")
+
+print ("Total run time of our algorithm: ", stop_kmean - start_kmean)
+print ("\nTotal run time of Sklearn: ", stop_sk - start_sk , "\n\n")
 # print (labels)
 
 # kmeans_display(X, labels, 'our kmeans')
